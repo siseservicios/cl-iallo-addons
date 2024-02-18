@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_partner_form_inherit_iallo_custom" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_company','=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@id='company']" position="after">
+                <xpath expr="//field[@name='ref']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="transport_id" />
+                <field name="old_erp_code" />
+                <field name="nosis_score" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
