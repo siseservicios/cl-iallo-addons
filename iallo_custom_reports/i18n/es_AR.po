@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* iallo_custom_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-29 14:35+0000\n"
+"PO-Revision-Date: 2024-06-29 14:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: iallo_custom_reports
+#: model:ir.actions.report,print_report_name:iallo_custom_reports.l10n_ar_stock_picking_afip_remito
+msgid ""
+"(object.state == 'done') and ((object.voucher_ids and "
+"'R-'+object.voucher_ids[0].name or ''))+'.pdf'"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model_terms:ir.ui.view,arch_db:iallo_custom_reports.l10n_ar_report_remito_r_document
+msgid "<strong class=\"text-left\">Descripción</strong>"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model_terms:ir.ui.view,arch_db:iallo_custom_reports.l10n_ar_report_remito_r_document
+msgid "<strong>Cantidad</strong>"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model_terms:ir.ui.view,arch_db:iallo_custom_reports.l10n_ar_report_remito_r_document
+msgid "<strong>Transporte:</strong>"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model_terms:ir.ui.view,arch_db:iallo_custom_reports.l10n_ar_report_remito_r_document
+msgid "<strong>Unidad Medida</strong>"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model_terms:ir.ui.view,arch_db:iallo_custom_reports.l10n_ar_report_remito_r_document
+msgid "<strong>Valor Declarado:</strong>"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model:ir.actions.report,name:iallo_custom_reports.l10n_ar_stock_picking_afip_remito
+msgid "AFIP - Remito R"
+msgstr ""
+
+#. module: iallo_custom_reports
+#: model:ir.model,name:iallo_custom_reports.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: iallo_custom_reports
+#: model:ir.model,name:iallo_custom_reports.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
