@@ -2,7 +2,7 @@
 
 {
     'name': "Iallo Custom Reports",
-    'version': '15.0.0',
+    'version': '15.0.1',
     'description': """Iallo Custom Reports""",
     'summary': "Iallo Custom Reports",
     'author': 'Luis Trajtenberg',

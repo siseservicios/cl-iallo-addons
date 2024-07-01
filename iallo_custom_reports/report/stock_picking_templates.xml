@@ -8,15 +8,18 @@
                     <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang or o.env.lang)" />
                     <t t-set="partner" t-value="o.partner_id or False"/>
                     <div class="row">
-                        <div class="col-12 page" style="margin-top: 100px;">
+                        <div class="col-12 page" style="margin-top: 110px;">
                             <div class="row" name="picking_dates">
-                                <div class="col-12 text-right" t-if="o.state" name="date_done" style="font-size: 12px !important;">
+                                <div class="col-11 text-right" t-if="o.state" name="date_done" style="font-size: 12px !important;">
                                     <t t-if="o.state == 'done'">
                                         <p t-field="o.date_done" t-options='{"format": "dd   MM   yyyy"}'/>
                                     </t>
                                 </div>
+                                <div class="col-1">
+
+                                </div>
                             </div>
-                            <div class="row" style="margin-bottom: 20px; margin-top: 70px;">
+                            <div class="row" style="margin-bottom: 20px; margin-top: 100px;">
                                 <div class="col-8" name="partner_header">
                                     <div t-if="partner" name="partner_data">
                                         <div style="font-size: 12px !important;" t-field="partner.commercial_partner_id"
