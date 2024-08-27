@@ -23,7 +23,12 @@
                                 <div class="col-8" name="partner_header">
                                     <div t-if="partner" name="partner_data">
                                         <div style="font-size: 12px !important;" t-field="partner.commercial_partner_id"
-                                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                            t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                                        <span style="font-size: 12px !important;" t-out="partner" 
+                                            t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                        <div style="font-size: 12px !important;" t-field="partner.commercial_partner_id"
+                                            t-options='{"widget": "contact", "fields": ["phone"], "no_marker": True, "phone_icons": True}'/>
+                                        <span style="font-size: 12px !important;" t-field="partner.delivery_description"/>
                                     </div>
                                 </div>
                                 <div class="col-4" name="fiscal_data">
@@ -32,9 +37,11 @@
                                     </div>
                                     <div style="font-size: 12px !important;">
                                         <strong>Transporte:</strong>
+                                        <span t-if="o.carrier_id" t-esc="o.carrier_id.name"/>
                                     </div>
                                     <div style="font-size: 12px !important;">
                                         <strong>Valor Declarado:</strong>
+                                        <span t-if="o.declared_value" t-esc="o.declared_value"/>
                                     </div>
                                 </div>
                             </div>
@@ -43,32 +50,92 @@
                                     <table class="table table-sm" t-if="o.state=='done'" name="stock_move_table" style="font-size: 12px !important; width: 100% !important">
                                         <thead>
                                             <tr style="background-color: #ccc !important; color: white !important;">
-                                                <th class="text-left" name="th_product">
+                                                <th class="text-left" name="th_product" style="width: 55% !important;">
                                                     <strong>Descripción</strong>
                                                 </th>
-                                                <th class="text-right" name="th_quantity">
+                                                <th class="text-left" style="width: 10% !important;"><span>Lote</span></th>
+                                                <th class="text-left" style="width: 10% !important;"><span>Despacho</span></th>
+                                                <th class="text-right" name="th_quantity" style="width: 5% !important;">
                                                     <strong>Cantidad</strong>
                                                 </th>
-                                                <th class="text-left" name="th_uom">
+                                                <th class="text-left" name="th_uom" style="width: 10% !important;">
                                                     <strong>Unidad Medida</strong>
+                                                </th>
+                                                <th class="text-left" name="th_uom" style="width: 10% !important;">
+                                                    <strong>Precio</strong>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
-                                            <tr t-foreach="lines" t-as="move">
-                                                <td class="text-left">
-                                                    <span t-field="move.product_id"/>
-                                                    <p t-if="move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
-                                                        <span t-field="move.description_picking"/>
-                                                    </p>
+                                            <t t-foreach="lines" t-as="move">
+                                                <tr style=" font-size: 12px !important; border-top: 0px !important; border-bottom: 0px !important; line-height: 12px !important; height: 12px !important;">
+                                                    <td colspan="3" class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                        <span t-field="move.product_id"/>
+                                                        <p t-if="move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
+                                                            <span t-field="move.description_picking"/>
+                                                        </p>
+                                                    </td>
+                                                    <td class="text-right" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                        <span t-field="move.quantity_done"/>
+                                                    </td>
+                                                    <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                        <span t-field="move.product_uom"/>
+                                                    </td>
+                                                    <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                        <span t-esc="move.sale_line_id.price_reduce_taxinc * move.quantity_done"
+                                                            t-options="{'widget': 'monetary', 'display_currency': (move.sale_line_id or company_id or res_company).currency_id}"/>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="move.move_line_ids" t-foreach="move.move_line_ids" t-as="lot">
+                                                    <tr style="border-top: 0px !important; border-bottom: 0px !important; font-size: 9px !important; line-height: 10px !important; height: 10px !important">
+                                                        <td style="border-top: 0px !important; border-bottom: 0px !important;"> </td>
+                                                        <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                            <span t-field="lot.lot_id.name"/>
+                                                        </td>
+                                                        <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
+                                                            <t t-if="lot.lot_id.dispatch_number">
+                                                                <span t-field="lot.lot_id.dispatch_number"/>
+                                                            </t>
+                                                        </td>
+                                                        <td class="text-right" style="border-top: 0px !important; border-bottom: 0px !important;"><span t-field="lot.qty_done"/></td>
+                                                        <td style="border-top: 0px !important; border-bottom: 0px !important;"> </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12" name="table">
+                                    <table class="table table-borderless table-sm" t-if="o.state=='done'" name="signature_table" style="font-size: 12px !important; width: 100% !important">
+                                        <thead>
+                                            <tr>
+                                                <th width="25%">Recibí conforme:</th>
+                                                <th width="25%"></th>
+                                                <th width="25%"></th>
+                                                <th width="25%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="text-align: center;">____ / ____ / ____</th>
+                                                <td>
+                                                    <hr style="border: 1px solid #000000;"/>
                                                 </td>
-                                                <td class="text-right">
-                                                    <span t-field="move.quantity_done"/>
+                                                <td>
+                                                    <hr style="border: 1px solid #000000;"/>
                                                 </td>
-                                                <td class="text-left">
-                                                    <span t-field="move.product_uom"/>
+                                                <td>
+                                                    <hr style="border: 1px solid #000000;"/>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: center;">Fecha</th>
+                                                <th style="text-align: center;">DNI</th>
+                                                <th style="text-align: center;">Firma</th>
+                                                <th style="text-align: center;">Aclaración</th>
                                             </tr>
                                         </tbody>
                                     </table>

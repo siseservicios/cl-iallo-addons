@@ -1,0 +1,6 @@
+from odoo import models, fields, api, _
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    delivery_description = fields.Text(string="Descripcion de Entrega")
