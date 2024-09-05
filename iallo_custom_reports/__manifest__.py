@@ -2,7 +2,7 @@
 
 {
     'name': "Iallo Custom Reports",
-    'version': '15.0.3',
+    'version': '15.0.4',
     'description': """Iallo Custom Reports""",
     'summary': "Iallo Custom Reports",
     'author': 'Valentin Romero, Luis Trajtenberg',

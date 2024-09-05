@@ -55,14 +55,11 @@
                                                 </th>
                                                 <th class="text-left" style="width: 10% !important;"><span>Lote</span></th>
                                                 <th class="text-left" style="width: 10% !important;"><span>Despacho</span></th>
-                                                <th class="text-right" name="th_quantity" style="width: 5% !important;">
+                                                <th class="text-right" name="th_quantity" style="width: 10% !important;">
                                                     <strong>Cantidad</strong>
                                                 </th>
-                                                <th class="text-left" name="th_uom" style="width: 10% !important;">
+                                                <th class="text-left" name="th_uom" style="width: 15% !important;">
                                                     <strong>Unidad Medida</strong>
-                                                </th>
-                                                <th class="text-left" name="th_uom" style="width: 10% !important;">
-                                                    <strong>Precio</strong>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -81,10 +78,6 @@
                                                     </td>
                                                     <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
                                                         <span t-field="move.product_uom"/>
-                                                    </td>
-                                                    <td class="text-left" style="border-top: 0px !important; border-bottom: 0px !important;">
-                                                        <span t-esc="move.sale_line_id.price_reduce_taxinc * move.quantity_done"
-                                                            t-options="{'widget': 'monetary', 'display_currency': (move.sale_line_id or company_id or res_company).currency_id}"/>
                                                     </td>
                                                 </tr>
                                                 <t t-if="move.move_line_ids" t-foreach="move.move_line_ids" t-as="lot">

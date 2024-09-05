@@ -1,9 +1,31 @@
 from odoo import models, fields, api, _
-import logging
-_logger = logging.getLogger(__name__)
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
+
+    def _get_partner_carrier(self, partner):
+        carrier_id = False
+        if partner.property_delivery_carrier_id:
+            carrier_id = partner.property_delivery_carrier_id.id
+        elif partner.commercial_partner_id and partner.commercial_partner_id.property_delivery_carrier_id:
+            carrier_id = partner.commercial_partner_id.property_delivery_carrier_id.id
+        return carrier_id
+
+    @api.onchange("partner_id")
+    def onchange_partner_id(self):
+        super().onchange_partner_id()
+        self.write({
+            "carrier_id": self._get_partner_carrier(self.partner_id)
+        })
+    
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if res.partner_id:
+            res.write({
+                "carrier_id": self._get_partner_carrier(res.partner_id)
+            })
+        return res
 
     @api.depends(
             'automatic_declare_value',
